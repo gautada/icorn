@@ -8,13 +8,13 @@ specification.
 
 ## Initial Setup
 
-```
+```zsh
 uv init
 uv add uvicorn fastapi
 ```
 
 ## Run Application
 
-```
+```zsh
 uv run uvicorn main:app --reload
 ```

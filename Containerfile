@@ -47,7 +47,7 @@ RUN /usr/sbin/usermod -l $USER alpine \
 # │ CONTAINER          │
 # ╰――――――――――――――――――――╯
 COPY uvicorn.s6 /etc/services.d/uvicorn/run
-RUN apk add --no-cache python3 uv libffi openssl ca-certificates
+RUN apk add --no-cache python3 libffi openssl ca-certificates
 # Copy the venv and app code from builder
 COPY --from=BUILD /opt/icorn /opt/icorn
 COPY --from=BUILD /home/alpine/.local /home/${USER}/.local
