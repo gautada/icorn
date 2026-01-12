@@ -42,6 +42,13 @@ repos:
         # If you use dbt templating, add the extras:
         # additional_dependencies: ["dbt-bigquery==1.8.*",
         # "sqlfluff-templater-dbt"]
+  - repo: https://github.com/pycqa/flake8
+    rev: 7.0.0
+    hooks:
+      - id: flake8
+        additional_dependencies:
+          - flake8-bugbear
+          - flake8-comprehensions
   - repo: local
     hooks:
       - id: jscpd
