@@ -9,10 +9,11 @@ RUN apk add --no-cache \
     build-base musl-dev linux-headers \
     libffi-dev openssl-dev \
     curl uv
-WORKDIR /opt
-RUN git clone --branch ${GITHUB_TAG} https://github.com/gautada/icorn.git icorn \
- && chown alpine:alpine -R /opt/icorn 
 WORKDIR /opt/icorn
+COPY . .
+# RUN git clone --branch ${GITHUB_TAG} https://github.com/gautada/icorn.git icorn \
+RUN chown alpine:alpine -R /opt/icorn 
+# WORKDIR /opt/icorn
 USER alpine
 RUN uv venv .venv \
  && uv sync --frozen --no-dev
