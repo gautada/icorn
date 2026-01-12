@@ -15,7 +15,7 @@ repos:
         name: ShellCheck Linter
         entry: shellcheck
         language: system
-        files: '\.*sh$'  # Runs on all .sh files
+        files: '\.(sh|s6|zsh)$'  # Runs on all .sh, s6, and zsh files
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.35.0  # Use the latest stable version
     hooks:
