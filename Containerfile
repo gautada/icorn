@@ -9,9 +9,12 @@ RUN apk add --no-cache \
     build-base musl-dev linux-headers \
     libffi-dev openssl-dev \
     curl uv
-WORKDIR /opt
-RUN git clone --branch ${GITHUB_TAG} https://github.com/gautada/icorn.git icorn
 WORKDIR /opt/icorn
+COPY . .
+# RUN git clone --branch ${GITHUB_TAG} https://github.com/gautada/icorn.git icorn \
+RUN chown alpine:alpine -R /opt/icorn 
+# WORKDIR /opt/icorn
+USER alpine
 RUN uv venv .venv \
  && uv sync --frozen --no-dev
 
@@ -45,9 +48,11 @@ RUN /usr/sbin/usermod -l $USER alpine \
 # │ CONTAINER          │
 # ╰――――――――――――――――――――╯
 COPY uvicorn.s6 /etc/services.d/uvicorn/run
-RUN apk add --no-cache python3 libffi openssl ca-certificates
+RUN apk add --no-cache python3 uv libffi openssl ca-certificates
 # Copy the venv and app code from builder
 COPY --from=BUILD /opt/icorn /opt/icorn
+COPY --from=BUILD /home/alpine/.local /home/${USER}/.local
 RUN chown ${USER}:${USER} -R /opt/icorn /home/${USER}
 WORKDIR /home/${USER}
+RUN ln -fsv /home/${USER}/.local/share/uv/python/cpython-3.13.11-linux-aarch64-musl/bin/python3.13 /opt/icorn/.venv/bin/python
 
