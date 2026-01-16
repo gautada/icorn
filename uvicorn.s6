@@ -11,4 +11,5 @@ export PYTHONUNBUFFERED=1
 # Use --reload for debug 
 # export PATH="/opt/icorn/.venv/bin:${PATH}"
 cd /opt/icorn
-su icorn -c "uv run uvicorn app.main:app --reload --host 0.0.0.0 --port 8080"
+su icorn -c "uv run uvicorn app.main:app --reload --proxy-headers --host 0.0.0.0 --port 8080"
+
